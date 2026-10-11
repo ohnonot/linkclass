@@ -42,7 +42,6 @@ lint = [
 ]
 test = [
     "invoke>=2.2",
-    "markdown>=3.4",
     "pytest>=7.0",
     "pytest-cov>=4.0",
     "pytest-sugar>=1.0",
