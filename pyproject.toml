@@ -35,9 +35,6 @@ dependencies = [
 "Changelog" = "https://github.com/pelican-plugins/linkclass/blob/main/CHANGELOG.md"
 "Funding" = "https://donate.getpelican.com/"
 
-[project.optional-dependencies]
-markdown = ["markdown>=3.4"]
-
 [dependency-groups]
 lint = [
     "invoke>=2.2",
