@@ -21,8 +21,10 @@ from markdown.extensions import Extension
 from markdown.inlinepatterns import (
     LINK_RE,
     REFERENCE_RE,
+    AUTOLINK_RE,
     LinkInlineProcessor,
     ReferenceInlineProcessor,
+    AutolinkInlineProcessor,
 )
 
 LC_CONFIG = {"INTERNAL_CLASS": "internal", "EXTERNAL_CLASS": "external", "TARGETBLANK": False, "TOOLTIP": ""}
@@ -73,6 +75,22 @@ class LinkClassExtension(Extension):
         ReferenceClassPattern.md = md
         md.inlinePatterns.register(ReferenceClassPattern, "referenceclass", 200)
 
+
+class LinkClass(AutolinkInlineProcessor):
+    """Markdown inline pattern processor for adding class attribute to automatic hyperlinks."""  # NOQA: E501
+
+    def __init__(self, pattern, config):
+        """Initialize the Markdwon inline pattern processor."""
+        super().__init__(pattern)
+        # Store the configuration dict
+        self.config = config
+
+    def handleMatch(self, m, data):
+        """Add the class attribute to the generated <a> element."""
+        # Build the <a> element using the parent class
+        elm, start, end = super().handleMatch(m, data)
+        # Return the <a> element with added class
+        return add_class(elm, self.config), start, end
 
 class LinkClass(LinkInlineProcessor):
     """Markdown inline pattern processor for adding class attribute to inline-style hyperlinks."""  # NOQA: E501
